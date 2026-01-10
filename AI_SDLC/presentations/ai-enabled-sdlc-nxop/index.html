@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Enabled SDLC for NXOP | American Airlines</title>
+    
+    <!-- Reveal.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/theme/white.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --aa-red: #C80A28;
+            --aa-dark-blue: #004B87;
+            --aa-light-blue: #0078D2;
+            --aa-silver: #A7AAAD;
+            --aa-dark-gray: #2B2B2B;
+            --aa-light-gray: #F5F5F5;
+            --warning-orange: #FF8C00;
+            --success-green: #28A745;
+        }
+
+        body {
+            background: linear-gradient(135deg, #004B87 0%, #0078D2 100%);
+        }
+
+        .reveal {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: none;
+        }
+
+        /* Title Slide */
+        .title-slide {
+            background: linear-gradient(135deg, var(--aa-dark-blue) 0%, var(--aa-light-blue) 100%);
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title-slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(-15deg);
+        }
+
+        .aa-logo {
+            width: 200px;
+            height: auto;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 10px 40px rgba(0,0,0,0.3));
+        }
+
+        .aa-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .title-slide h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .title-slide .subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title-slide .meta {
+            font-size: 1rem;
+            opacity: 0.8;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Content Slides */
+        .reveal section {
+            background: white;
+            color: var(--aa-dark-gray);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+            font-size: 0.9rem;
+            max-height: 90vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Custom scrollbar for slides */
+        .reveal section::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .reveal section::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+
+        .reveal section::-webkit-scrollbar-thumb {
+            background: var(--aa-light-blue);
+            border-radius: 10px;
+        }
+
+        .reveal section::-webkit-scrollbar-thumb:hover {
+            background: var(--aa-dark-blue);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 2.5rem;
+            margin-bottom: 1.8rem;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .tab-button {
+            padding: 1.5rem 4rem;
+            background: rgba(0, 0, 0, 0.05);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            color: var(--aa-silver);
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            z-index: 2;
+        }
+
+        .tab-button::after {
+            content: '';
+        }
+
+        .tab-button:last-child::after {
+            content: '';
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .tab-button.crawl {
+            color: rgba(40, 167, 69, 0.7);
+            border-color: rgba(40, 167, 69, 0.3);
+        }
+
+        .tab-button.walk {
+            color: rgba(255, 140, 0, 0.7);
+            border-color: rgba(255, 140, 0, 0.3);
+        }
+
+        .tab-button.run {
+            color: rgba(0, 120, 210, 0.7);
+            border-color: rgba(0, 120, 210, 0.3);
+        }
+
+        .tab-button.crawl.active {
+            background: linear-gradient(135deg, var(--success-green) 0%, #218838 100%);
+            border-color: var(--success-green);
+            color: white;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+        }
+
+        .tab-button.crawl.active::after {
+            color: var(--success-green);
+            opacity: 0.8;
+        }
+
+        .tab-button.walk.active {
+            background: linear-gradient(135deg, var(--warning-orange) 0%, #e07b00 100%);
+            border-color: var(--warning-orange);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.4);
+        }
+
+        .tab-button.walk.active::after {
+            color: var(--warning-orange);
+            opacity: 0.8;
+        }
+
+        .tab-button.run.active {
+            background: linear-gradient(135deg, var(--aa-dark-blue) 0%, var(--aa-light-blue) 100%);
+            border-color: var(--aa-light-blue);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 120, 210, 0.4);
+        }
+
+        .tab-button.active:hover {
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Executive Progress Tracker */
+        .progress-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin: 1rem 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid var(--aa-light-gray);
+        }
+
+        .progress-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--aa-dark-blue);
+        }
+
+        .progress-status {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .progress-bar-wrapper {
+            position: relative;
+            height: 28px;
+            background: var(--aa-light-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 0.6rem 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-green) 0%, var(--warning-orange) 50%, var(--aa-light-blue) 100%);
+            border-radius: 15px;
+            transition: width 2s ease-in-out;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.7rem;
+            color: white;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .progress-markers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.3rem;
+            font-size: 0.7rem;
+            color: var(--aa-silver);
+        }
+
+        .milestone-tracker {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.7rem;
+            margin-top: 1rem;
+        }
+
+        .milestone-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            border-left: 3px solid var(--aa-silver);
+            transition: all 0.3s ease;
+        }
+
+        .milestone-card.completed {
+            border-left-color: var(--success-green);
+        }
+
+        .milestone-card.in-progress {
+            border-left-color: var(--warning-orange);
+        }
+
+        .milestone-card.planned {
+            border-left-color: var(--aa-light-blue);
+        }
+
+        .milestone-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .milestone-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .milestone-card.completed .milestone-icon {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success-green);
+        }
+
+        .milestone-card.in-progress .milestone-icon {
+            background: rgba(255, 140, 0, 0.1);
+            color: var(--warning-orange);
+        }
+
+        .milestone-card.planned .milestone-icon {
+            background: rgba(0, 120, 210, 0.1);
+            color: var(--aa-light-blue);
+        }
+
+        .milestone-name {
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--aa-dark-blue);
+            margin-bottom: 0.3rem;
+        }
+
+        .milestone-status {
+            font-size: 0.7rem;
+            color: var(--aa-silver);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .phase-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .phase-indicator.crawl {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success-green);
+        }
+
+        .phase-indicator.walk {
+            background: rgba(255, 140, 0, 0.1);
+            color: var(--warning-orange);
+        }
+
+        .phase-indicator.run {
+            background: rgba(0, 120, 210, 0.1);
+            color: var(--aa-light-blue);
+        }
+
+        /* Floating Back to Agenda Button */
+        .back-to-agenda {
+            position: fixed;
+            bottom: 80px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--aa-red) 0%, #a00820 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(200, 10, 40, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .back-to-agenda.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .back-to-agenda:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 30px rgba(200, 10, 40, 0.6);
+        }
+
+        .back-to-agenda:active {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .back-to-agenda::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(135deg, var(--aa-red) 0%, #a00820 100%);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(1.3);
+            }
+        }
+
+        .back-to-agenda .tooltip {
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--aa-dark-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            white-space: nowrap;
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .back-to-agenda .tooltip::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid var(--aa-dark-blue);
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+        }
+
+        .back-to-agenda:hover .tooltip {
+            opacity: 1;
+        }
+
+        .reveal section h2 {
+            color: var(--aa-red);
+            border-bottom: 3px solid var(--aa-dark-blue);
+            padding-bottom: 0.4rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.4rem;
+        }
+
+        .reveal section h3 {
+            color: var(--aa-dark-blue);
+            margin-top: 1rem;
+            margin-bottom: 0.7rem;
+        }
+
+        /* Header Bar */
+        .aa-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--aa-red) 0%, var(--aa-dark-blue) 50%, var(--aa-light-blue) 100%);
+            z-index: 10;
+        }
+
+        /* Footer */
+        .aa-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--aa-silver);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+            align-items: center;
+        }
+
+        .aa-footer .logo-small {
+            height: 30px;
+            width: auto;
+        }
+
+        .aa-footer .logo-small img {
+            height: 100%;
+            width: auto;
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-left: 3px solid var(--aa-red);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.7rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 16px rgba(0,0,0,0.12);
+        }
+
+        .card-icon {
+            font-size: 1.3rem;
+            color: var(--aa-dark-blue);
+            margin-bottom: 0.6rem;
+        }
+
+        .warning-card {
+            border-left-color: var(--warning-orange);
+            background: linear-gradient(135deg, #FFF8E7 0%, #ffffff 100%);
+        }
+
+        .warning-card .card-icon {
+            color: var(--warning-orange);
+        }
+
+        /* Grid Layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        /* Stats */
+        .stat-box {
+            background: linear-gradient(135deg, var(--aa-dark-blue) 0%, var(--aa-light-blue) 100%);
+            color: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,75,135,0.2);
+        }
+
+        .stat-box.warning {
+            background: linear-gradient(135deg, #DC3545 0%, #FF6B6B 100%);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Buttons */
+        .aa-button {
+            background: var(--aa-red);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(200,10,40,0.3);
+        }
+
+        .aa-button:hover {
+            background: #a00820;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(200,10,40,0.4);
+        }
+
+        /* Lists */
+        .reveal ul {
+            list-style: none;
+        }
+
+        .reveal li {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .reveal li::before {
+            content: '\f04d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #444444;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        .chart-container.large {
+            height: 500px;
+        }
+
+        /* Callout Box */
+        .callout {
+            background: linear-gradient(135deg, #FFF3CD 0%, #FFF8E7 100%);
+            border-left: 3px solid var(--warning-orange);
+            padding: 0.9rem 1.1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            box-shadow: 0 2px 10px rgba(255,140,0,0.08);
+        }
+
+        .callout h3 {
+            color: var(--warning-orange);
+            margin-top: 0;
+        }
+
+        .callout.critical {
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFF0F0 100%);
+            border-left-color: #DC3545;
+        }
+
+        .callout.critical h3 {
+            color: #DC3545;
+        }
+
+        /* Timeline */
+        .timeline-horizontal {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .timeline-horizontal::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--aa-red) 0%, var(--aa-dark-blue) 100%);
+        }
+
+        .timeline-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-dot {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: 3px solid var(--aa-dark-blue);
+            border-radius: 50%;
+            margin: 0 auto 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--aa-dark-blue);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+        .timeline-step.complete .timeline-dot {
+            background: var(--aa-dark-blue);
+            color: white;
+        }
+
+        .timeline-step.warning .timeline-dot {
+            border-color: var(--warning-orange);
+            color: var(--warning-orange);
+        }
+
+        /* Problem Statement Box */
+        .problem-box {
+            background: linear-gradient(135deg, #DC3545 0%, #C82333 100%);
+            color: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1.2rem 0;
+            box-shadow: 0 4px 16px rgba(220,53,69,0.2);
+        }
+
+        .problem-box h3 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+        }
+
+        /* Solution Box */
+        .solution-box {
+            background: linear-gradient(135deg, var(--success-green) 0%, #218838 100%);
+            color: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1.2rem 0;
+            box-shadow: 0 4px 16px rgba(40,167,69,0.2);
+        }
+
+        .solution-box h3 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+        }
+
+        /* Impact Metrics */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.2rem 0;
+        }
+
+        .impact-item {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .impact-before {
+            color: #DC3545;
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+        }
+
+        .impact-arrow {
+            color: var(--aa-silver);
+            font-size: 1.1rem;
+            margin: 0.3rem 0;
+        }
+
+        .impact-after {
+            color: var(--success-green);
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-top: 0.3rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .impact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .title-slide h1 {
+                font-size: 2rem;
+            }
+            
+            .timeline-horizontal {
+                flex-direction: column;
+            }
+            
+            .timeline-horizontal::before {
+                display: none;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .reveal section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="aa-header"></div>
+    
+    <div class="reveal">
+        <!-- Floating Back to Agenda Button -->
+        <button class="back-to-agenda" id="backToAgenda" onclick="Reveal.slide(1)">
+            <i class="fas fa-home"></i>
+            <span class="tooltip">Back to Agenda</span>
+        </button>
+
+        <div class="slides">
+            
+            <!-- TITLE SLIDE -->
+            <section class="title-slide">
+                <div class="aa-logo animate__animated animate__zoomIn">
+                    <img src="../../shared-assets/images/aa.png" alt="American Airlines Logo">
+                </div>
+                <h1 class="animate__animated animate__fadeInUp" style="font-size: 3.2rem; font-weight: 900; margin: 1.5rem 0; background: linear-gradient(135deg, #1a1a2e 0%, #0078D2 50%, #C80A28 100%); -webkit-background-clip: text; background-clip: text; color: transparent; text-align: center; line-height: 1.2; letter-spacing: -1px;">
+                    Making NXOP AI-Native<br>
+                    <span style="font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, #0078D2 0%, #FF8C00 100%); -webkit-background-clip: text; background-clip: text; color: transparent;">A Path to Speed, Reliability, and Scale</span>
+                </h1>
+                
+                <div class="animate__animated animate__fadeInUp animate__delay-1s" style="display: flex; gap: 2rem; margin: 2rem auto; flex-wrap: wrap; justify-content: center; max-width: 900px;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--aa-dark-gray); font-size: 0.95rem;">
+                        <i class="fas fa-rocket" style="color: var(--warning-orange); font-size: 1.2rem;"></i>
+                        <span>SDLC Acceleration</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--aa-dark-gray); font-size: 0.95rem;">
+                        <i class="fas fa-brain" style="color: var(--aa-dark-blue); font-size: 1.2rem;"></i>
+                        <span>MCP & AI Integration</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--aa-dark-gray); font-size: 0.95rem;">
+                        <i class="fas fa-network-wired" style="color: var(--success-green); font-size: 1.2rem;"></i>
+                        <span>Multi-Vendor Integration</span>
+                    </div>
+                </div>
+                
+                <p class="meta animate__animated animate__fadeInUp animate__delay-2s" style="margin-top: 19rem;">
+                    <i class="fas fa-building" style="color: var(--aa-dark-blue);"></i> NXOP Program | 
+                    <i class="fas fa-users" style="color: var(--warning-orange);"></i> Technology Leadership | 
+                    <i class="fas fa-calendar" style="color: var(--success-green);"></i> January 9, 2026
+                </p>
+            </section>
+            <!-- AGENDA SLIDE -->
+            <section>
+                <h2><i class="fas fa-list-check"></i> Agenda</h2>
+                <p style="text-align: center; color: var(--aa-silver); margin-bottom: 3rem; font-size: 0.9rem;">
+                    Total Duration: ~25 minutes
+                </p>
+                
+                <!-- Timeline Container -->
+                <div style="position: relative; padding: 2rem 0; max-width: 1200px; margin: 0 auto;">
+                    
+                    <!-- Timeline Items -->
+                    <div style="display: flex; justify-content: space-between; gap: 1.5rem; position: relative; z-index: 1;">
+                        
+                        <!-- Item 1 -->
+                        <a href="#/current-state" style="flex: 1; text-decoration: none; color: inherit; cursor: pointer; text-align: center; transition: all 0.3s ease;">
+                            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--aa-red) 0%, #a00820 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 800; box-shadow: 0 4px 20px rgba(200,10,40,0.4); margin: 0 auto 1.5rem; border: 5px solid white; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">1</div>
+                            <h3 style="margin: 0 0 0.5rem 0; color: var(--aa-dark-blue); font-size: 1rem; font-weight: 700;">Current Enterprise Metrics</h3>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--aa-dark-gray);">Where Time Goes<br>in SDLC</p>
+                            <p style="margin: 1rem 0 0 0; font-size: 0.75rem; color: var(--aa-silver);"><i class="fas fa-clock"></i> 5 mins</p>
+                        </a>
+                        
+                        <!-- Item 2 -->
+                        <a href="#/what-we-will-do" style="flex: 1; text-decoration: none; color: inherit; cursor: pointer; text-align: center; transition: all 0.3s ease;">
+                            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--aa-dark-blue) 0%, var(--aa-light-blue) 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 800; box-shadow: 0 4px 20px rgba(0,75,135,0.4); margin: 0 auto 1.5rem; border: 5px solid white; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">2</div>
+                            <h3 style="margin: 0 0 0.5rem 0; color: var(--aa-dark-blue); font-size: 1rem; font-weight: 700;">AI-Native SDLC Adoption</h3>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--aa-dark-gray);">Crawl, Walk,<br>Run Model</p>
+                            <p style="margin: 1rem 0 0 0; font-size: 0.75rem; color: var(--aa-silver);"><i class="fas fa-clock"></i> 5 mins</p>
+                        </a>
+                        
+                        <!-- Item 3 -->
+                        <a href="#/demo" style="flex: 1; text-decoration: none; color: inherit; cursor: pointer; text-align: center; transition: all 0.3s ease;">
+                            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--warning-orange) 0%, #e07b00 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 800; box-shadow: 0 4px 20px rgba(255,140,0,0.4); margin: 0 auto 1.5rem; border: 5px solid white; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <h3 style="margin: 0 0 0.5rem 0; color: var(--warning-orange); font-size: 1rem; font-weight: 700;">Live Demo</h3>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--aa-dark-gray);">MCP + AI<br>in Action</p>
+                            <p style="margin: 1rem 0 0 0; font-size: 0.75rem; color: var(--aa-silver);"><i class="fas fa-clock"></i> 5 mins</p>
+                        </a>
+                        
+                        <!-- Item 4 -->
+                        <a href="#/business-impact" style="flex: 1; text-decoration: none; color: inherit; cursor: pointer; text-align: center; transition: all 0.3s ease;">
+                            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--aa-light-blue) 0%, #0062a8 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 800; box-shadow: 0 4px 20px rgba(0,120,210,0.4); margin: 0 auto 1.5rem; border: 5px solid white; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">4</div>
+                            <h3 style="margin: 0 0 0.5rem 0; color: var(--aa-dark-blue); font-size: 1rem; font-weight: 700;">Progress Dashboard</h3>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--aa-dark-gray);">Executive<br>Overview</p>
+                            <p style="margin: 1rem 0 0 0; font-size: 0.75rem; color: var(--aa-silver);"><i class="fas fa-clock"></i> 3 mins</p>
+                        </a>
+                        
+                        <!-- Item 5 -->
+                        <a href="#/business-impact" style="flex: 1; text-decoration: none; color: inherit; cursor: pointer; text-align: center; transition: all 0.3s ease;">
+                            <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--success-green) 0%, #218838 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 800; box-shadow: 0 4px 20px rgba(40,167,69,0.4); margin: 0 auto 1.5rem; border: 5px solid white; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">5</div>
+                            <h3 style="margin: 0 0 0.5rem 0; color: var(--aa-dark-blue); font-size: 1rem; font-weight: 700;">Business Outcomes</h3>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--aa-dark-gray);">Expected ROI<br>& Impact</p>
+                            <p style="margin: 1rem 0 0 0; font-size: 0.75rem; color: var(--aa-silver);"><i class="fas fa-clock"></i> 4 mins</p>
+                        </a>
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- CURRENT STATE OVERVIEW -->
+            <section id="current-state">
+                <h2><i class="fas fa-chart-line"></i> Current Enterprise Metrics</h2>
+                
+                <!-- Key Metrics -->
+                <div class="grid-3">
+                    <div class="stat-box animate__animated animate__fadeInUp" style="background: linear-gradient(135deg, #0078D2 0%, #4fc3f7 100%); border-left: 5px solid #0078D2; box-shadow: 0 2px 12px 0 rgba(0,120,210,0.10);">
+                        <div style="font-size: 2.5rem; color: #fff; margin-bottom: 0.5rem;"><i class="fas fa-calendar-days"></i></div>
+                        <div class="stat-number" style="color: #fff; font-weight: 800;">5.9</div>
+                        <div class="stat-label" style="color: #e3f0fa;">Days per Feature</div>
+                    </div>
+                    <div class="stat-box animate__animated animate__fadeInUp animate__delay-1s" style="background: linear-gradient(135deg, #7b1fa2 0%, #ce93d8 100%); border-left: 5px solid #7b1fa2; box-shadow: 0 2px 12px 0 rgba(123,31,162,0.10);">
+                        <div style="font-size: 2.5rem; color: #fff; margin-bottom: 0.5rem;"><i class="fas fa-clock"></i></div>
+                        <div class="stat-number" style="color: #fff; font-weight: 800;">26</div>
+                        <div class="stat-label" style="color: #f3e5f5;">Mins to Detect Issues</div>
+                    </div>
+                    <div class="stat-box animate__animated animate__fadeInUp animate__delay-2s" style="background: linear-gradient(135deg, #008080 0%, #4dd0e1 100%); border-left: 5px solid #008080; box-shadow: 0 2px 12px 0 rgba(0,128,128,0.10);">
+                        <div style="font-size: 2.5rem; color: #fff; margin-bottom: 0.5rem;"><i class="fas fa-hourglass-half"></i></div>
+                        <div class="stat-number" style="color: #fff; font-weight: 800;">52</div>
+                        <div class="stat-label" style="color: #e0f7fa;">Days Avg. Dwell Time</div>
+                    </div>
+                </div>
+
+                <!-- Manual Process Breakdown -->
+                <div style="margin-top: 2rem;">
+                    <h3 style="color: var(--aa-dark-blue); margin-bottom: 1.2rem; font-size: 1.1rem;"><i class="fas fa-tasks"></i> Manual Process Reality Across SDLC</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                        <!-- Requirements & Design -->
+                        <div style="background: white; border: 2px solid #e8eaf6; border-radius: 8px; padding: 1rem; text-align: center; transition: all 0.3s;">
+                            <div style="background: linear-gradient(135deg, #673ab7 0%, #9575cd 100%); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8rem;">
+                                <i class="fas fa-code" style="font-size: 1.8rem; color: white;"></i>
+                            </div>
+                            <h4 style="color: var(--aa-dark-blue); font-size: 0.85rem; margin: 0 0 0.5rem 0; font-weight: 700;">Requirements & Design</h4>
+                            <p style="font-size: 0.72rem; color: #666; margin: 0 0 0.6rem 0; line-height: 1.4;">Manual legacy code analysis, reverse-engineering, tribal knowledge reliance</p>
+                            <div style="background: #fff3e0; padding: 0.4rem; border-radius: 4px; font-size: 0.65rem; color: #e65100; font-weight: 600;">
+                                <i class="fas fa-gauge-simple-low" style="margin-right: 0.2rem;"></i>Limited documentation
+                            </div>
+                        </div>
+
+                        <!-- Development & Translation -->
+                        <div style="background: white; border: 2px solid #e8eaf6; border-radius: 8px; padding: 1rem; text-align: center; transition: all 0.3s;">
+                            <div style="background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8rem;">
+                                <i class="fas fa-laptop-code" style="font-size: 1.8rem; color: white;"></i>
+                            </div>
+                            <h4 style="color: var(--aa-dark-blue); font-size: 0.85rem; margin: 0 0 0.5rem 0; font-weight: 700;">Development</h4>
+                            <p style="font-size: 0.72rem; color: #666; margin: 0 0 0.6rem 0; line-height: 1.4;">Line-by-line translation, manual boilerplate, context switching overhead</p>
+                            <div style="background: #fff3e0; padding: 0.4rem; border-radius: 4px; font-size: 0.65rem; color: #e65100; font-weight: 600;">
+                                <i class="fas fa-gauge-simple-low" style="margin-right: 0.2rem;"></i>High translation effort
+                            </div>
+                        </div>
+
+                        <!-- Testing & QA -->
+                        <div style="background: white; border: 2px solid #e8eaf6; border-radius: 8px; padding: 1rem; text-align: center; transition: all 0.3s;">
+                            <div style="background: linear-gradient(135deg, #00897b 0%, #4db6ac 100%); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8rem;">
+                                <i class="fas fa-vial" style="font-size: 1.8rem; color: white;"></i>
+                            </div>
+                            <h4 style="color: var(--aa-dark-blue); font-size: 0.85rem; margin: 0 0 0.5rem 0; font-weight: 700;">Testing & QA</h4>
+                            <p style="font-size: 0.72rem; color: #666; margin: 0 0 0.6rem 0; line-height: 1.4;">Manual test creation, manual verification, manual regression testing</p>
+                            <div style="background: #fff3e0; padding: 0.4rem; border-radius: 4px; font-size: 0.65rem; color: #e65100; font-weight: 600;">
+                                <i class="fas fa-gauge-simple-low" style="margin-right: 0.2rem;"></i>Extended test cycles
+                            </div>
+                        </div>
+
+                        <!-- Deployment & Monitoring -->
+                        <div style="background: white; border: 2px solid #e8eaf6; border-radius: 8px; padding: 1rem; text-align: center; transition: all 0.3s;">
+                            <div style="background: linear-gradient(135deg, #d32f2f 0%, #ef5350 100%); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8rem;">
+                                <i class="fas fa-rocket" style="font-size: 1.8rem; color: white;"></i>
+                            </div>
+                            <h4 style="color: var(--aa-dark-blue); font-size: 0.85rem; margin: 0 0 0.5rem 0; font-weight: 700;">Deployment</h4>
+                            <p style="font-size: 0.72rem; color: #666; margin: 0 0 0.6rem 0; line-height: 1.4;">Manual planning, manual monitoring, reactive incident response</p>
+                            <div style="background: #fff3e0; padding: 0.4rem; border-radius: 4px; font-size: 0.65rem; color: #e65100; font-weight: 600;">
+                                <i class="fas fa-gauge-simple-low" style="margin-right: 0.2rem;"></i>Slow incident response
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout critical" style="margin-top: 1.5rem;">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Critical Finding</h3>
+                    <p><strong>NXOP cannot scale without transforming delivery.</strong></p>
+                </div>
+            </section>
+
+            <!-- WHERE TIME GOES IN SDLC -->
+            <section>
+                <h2><i class="fas fa-hourglass-half"></i> Where Time Goes in SDLC</h2>
+                
+                <!-- Main Content Layout -->
+                <div style="display: flex; justify-content: space-between; align-items: stretch; gap: 1.5rem; margin: 1rem 0;">
+                    
+                    <!-- Left Side: SDLC Lifecycle -->
+                    <div style="flex: 3; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; padding: 1.5rem; position: relative; min-height: 380px;">
+                        
+                        <!-- SDLC Circular Layout -->
+                        <div style="position: relative; width: 100%; height: 340px; margin: 0 auto;">
+                            
+                            <!-- Center Circle with Animation -->
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5;">
+                                <!-- Rotating outer ring -->
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; border: 2px dashed var(--aa-light-blue); border-radius: 50%; animation: rotate 20s linear infinite; opacity: 0.3;"></div>
+                                
+                                <!-- Main center circle -->
+                                <div style="position: relative; background: linear-gradient(135deg, white 0%, #f8f9fa 100%); border: 3px solid var(--aa-dark-blue); border-radius: 50%; width: 90px; height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.15); z-index: 10;">
+                                    <div style="font-size: 2.5rem; animation: hourglass-flip 3s ease-in-out infinite;">⏳</div>
+                                </div>
+                            </div>
+
+                            <!-- Circular Path Background -->
+                            <svg style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 330px; height: 330px; pointer-events: none; z-index: 1;">
+                                <!-- Main circle path -->
+                                <circle cx="165" cy="165" r="125" fill="none" stroke="rgba(0,120,210,0.1)" stroke-width="1" stroke-dasharray="5,5"/>
+                                
+                                <!-- Directional arrows around the circle -->
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                                        <polygon points="0 0, 10 5, 0 10" fill="var(--aa-dark-blue)"/>
+                                    </marker>
+                                </defs>
+                                
+                                <!-- Curved arrow segments with proper markers -->
+                                <path d="M 165,40 A 125,125 0 0,1 267,88" stroke="var(--aa-dark-blue)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                <path d="M 267,88 A 125,125 0 0,1 290,165" stroke="var(--aa-dark-blue)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                <path d="M 290,165 A 125,125 0 0,1 267,242" stroke="var(--aa-dark-blue)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                <path d="M 267,242 A 125,125 0 0,1 165,290" stroke="var(--aa-dark-blue)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                <path d="M 165,290 A 125,125 0 0,1 63,242" stroke="var(--aa-dark-blue)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                <path d="M 63,242 A 125,125 0 0,1 40,165" stroke="var(--aa-dark-blue)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                <path d="M 40,165 A 125,125 0 0,1 63,88" stroke="var(--aa-dark-blue)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                <path d="M 63,88 A 125,125 0 0,1 165,40" stroke="var(--aa-dark-blue)" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                            </svg>
+
+                            <!-- Stage 1: Requirements (Top) -->
+                            <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 10;">
+                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 15px rgba(102,126,234,0.4); border: 3px solid white;">
+                                    <i class="fas fa-list-check" style="font-size: 1.1rem; color: white;"></i>
+                                </div>
+                            </div>
+
+
+                            <!-- Stage 2: Design (Top Right) -->
+                            <div style="position: absolute; top: 58px; right: 38px; text-align: center; z-index: 10;">
+                                <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 15px rgba(240,147,251,0.4); border: 3px solid white;">
+                                    <i class="fas fa-palette" style="font-size: 1.1rem; color: white;"></i>
+                                </div>
+                            </div>
+
+
+                            <!-- Stage 3: Development (Right) -->
+                            <div style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); text-align: center; z-index: 10;">
+                                <div style="background: linear-gradient(135deg, #8e44ad 0%, #6c3483 100%); width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 15px rgba(142,68,173,0.4); border: 3px solid white;">
+                                    <i class="fas fa-code" style="font-size: 1.1rem; color: white;"></i>
+                                </div>
+                            </div>
+
+
+                            <!-- Stage 4: Testing (Bottom Right) -->
+                            <div style="position: absolute; bottom: 58px; right: 38px; text-align: center; z-index: 10;">
+                                <div style="background: linear-gradient(135deg, #17a2b8 0%, #138496 100%); width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 15px rgba(23,162,184,0.4); border: 3px solid white;">
+                                    <i class="fas fa-flask" style="font-size: 1.1rem; color: white;"></i>
+                                </div>
+                            </div>
+
+
+                            <!-- Stage 5: Deployment (Bottom) -->
+                            <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 10;">
+                                <div style="background: linear-gradient(135deg, var(--success-green) 0%, #20c997 100%); width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 15px rgba(40,167,69,0.4); border: 3px solid white;">
+                                    <i class="fas fa-rocket" style="font-size: 1.1rem; color: white;"></i>
+                                </div>
+                            </div>
+
+
+                            <!-- Stage 6: Monitoring (Bottom Left) -->
+                            <div style="position: absolute; bottom: 58px; left: 38px; text-align: center; z-index: 10;">
+                                <div style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 15px rgba(243,156,18,0.4); border: 3px solid white;">
+                                    <i class="fas fa-chart-line" style="font-size: 1.1rem; color: white;"></i>
+                                </div>
+                            </div>
+
+
+                            <!-- Stage 7: Maintenance (Left) -->
+                            <div style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); text-align: center; z-index: 10;">
+                                <div style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 15px rgba(52,152,219,0.4); border: 3px solid white;">
+                                    <i class="fas fa-wrench" style="font-size: 1.1rem; color: white;"></i>
+                                </div>
+                            </div>
+
+
+                            <!-- Stage 8: Planning (Top Left) -->
+                            <div style="position: absolute; top: 58px; left: 38px; text-align: center; z-index: 10;">
+                                <div style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 15px rgba(231,76,60,0.4); border: 3px solid white;">
+                                    <i class="fas fa-clipboard-list" style="font-size: 1.1rem; color: white;"></i>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- Wait Time Summary -->
+                        <div style="text-align: center; margin-top: 0.5rem; padding: 0.8rem; background: rgba(255,140,0,0.1); border-radius: 8px; border-left: 4px solid var(--warning-orange);">
+                            <div style="color: var(--warning-orange); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem;">
+                                <i class="fas fa-stopwatch"></i> Most time spent waiting between stages
+                            </div>
+                            <div style="color: var(--aa-dark-gray); font-size: 0.75rem;">
+                                Environment setup • Code reviews • Testing • Approvals • Handoffs
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Meeting Delays -->
+                    <div style="flex: 2; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+                        
+                        <!-- Header -->
+                        <div style="text-align: center; margin-bottom: 1rem;">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">📅⏳</div>
+                            <h3 style="color: var(--aa-dark-blue); margin: 0; font-size: 1.1rem; font-weight: 700;">Meeting Overhead</h3>
+                        </div>
+                        
+                        <!-- Meeting Types Grid -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; flex-grow: 1;">
+                            <div style="background: rgba(0,120,210,0.15); padding: 0.6rem; border-radius: 8px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="font-size: 1.2rem; margin-bottom: 0.3rem;">📋</div>
+                                <div style="font-size: 0.75rem; color: var(--aa-dark-blue); font-weight: 600; line-height: 1.2;">Planning<br>meetings</div>
+                            </div>
+                            <div style="background: rgba(0,120,210,0.15); padding: 0.6rem; border-radius: 8px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="font-size: 1.2rem; margin-bottom: 0.3rem;">🔄</div>
+                                <div style="font-size: 0.75rem; color: var(--aa-dark-blue); font-weight: 600; line-height: 1.2;">Status<br>updates</div>
+                            </div>
+                            <div style="background: rgba(0,120,210,0.15); padding: 0.6rem; border-radius: 8px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="font-size: 1.2rem; margin-bottom: 0.3rem;">🚨</div>
+                                <div style="font-size: 0.75rem; color: var(--aa-dark-blue); font-weight: 600; line-height: 1.2;">Issue<br>escalations</div>
+                            </div>
+                            <div style="background: rgba(0,120,210,0.15); padding: 0.6rem; border-radius: 8px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="font-size: 1.2rem; margin-bottom: 0.3rem;">✅</div>
+                                <div style="font-size: 0.75rem; color: var(--aa-dark-blue); font-weight: 600; line-height: 1.2;">Approval<br>gates</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Impact -->
+                        <div style="background: var(--aa-light-blue); color: white; padding: 0.8rem; border-radius: 8px; text-align: center;">
+                            <div style="font-weight: 700; font-size: 0.9rem;">Significant Additional Wait Time</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Solution Box - Full Width -->
+                <div style="background: linear-gradient(135deg, var(--aa-dark-blue) 0%, #1a1a2e 100%); color: white; padding: 1.5rem; border-radius: 12px; margin-top: 1rem; position: relative; overflow: hidden;">
+                    
+                    <!-- Background Pattern -->
+                    <div style="position: absolute; top: -20px; left: -20px; width: 100px; height: 100px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); border-radius: 50%;"></div>
+                    <div style="position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%); border-radius: 50%;"></div>
+                    
+                    <div style="position: relative; z-index: 2;">
+                        
+                        <!-- Header -->
+                        <div style="text-align: center; margin-bottom: 1rem;">
+                            <h2 style="color: white; margin: 0; font-size: 1.3rem; font-weight: 700;">🤖⚡AI Solution</h2>
+                        </div>
+
+                        <!-- Content Row -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; gap: 2rem;">
+                            
+                            <!-- Left: Mission Statement -->
+                            <div style="flex: 1; text-align: left;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <span style="color: var(--warning-orange); font-size: 1.2rem;">⚡💼</span>
+                                    <h3 style="color: white; margin: 0; font-size: 1rem; font-weight: 700;">We can't execute the mission with meetings</h3>
+                                </div>
+                                <p style="margin: 0; font-size: 0.85rem; opacity: 0.9; color: white;">AI makes coordination meetings redundant</p>
+                            </div>
+
+                            <!-- Right: Benefits & Transformation -->
+                            <div style="flex: 1; text-align: right;">
+                                <div style="margin-bottom: 0.8rem;">
+                                    <div style="font-size: 0.85rem; opacity: 0.9; line-height: 1.4; color: white;">
+                                        Eliminate meetings • Automate handoffs • Real-time coordination
+                                    </div>
+                                </div>
+                                
+                                <!-- Transformation Arrow -->
+                                <div style="display: flex; justify-content: flex-end; align-items: center; gap: 1rem; font-size: 0.9rem;">
+                                    <div style="color: var(--warning-orange); font-weight: 700;">Waiting Time</div>
+                                    <div style="font-size: 1.5rem;">→</div>
+                                    <div style="color: var(--success-green); font-weight: 700;">Productive Time</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    @keyframes pulse {
+                        0%, 100% { transform: scale(1); opacity: 1; }
+                        50% { transform: scale(1.1); opacity: 0.7; }
+                    }
+                    
+                    @keyframes rotate {
+                        from { transform: translate(-50%, -50%) rotate(0deg); }
+                        to { transform: translate(-50%, -50%) rotate(360deg); }
+                    }
+                    
+                    @keyframes hourglass-flip {
+                        0%, 30% { transform: rotate(0deg); }
+                        40%, 60% { transform: rotate(180deg); }
+                        70%, 100% { transform: rotate(360deg); }
+                    }
+                </style>
+            </section>
+
+            <!-- AI MATURITY MODEL - CRAWL WALK RUN -->
+            <section id="what-we-will-do">
+                <h2><i class="fas fa-stairs"></i> NXOP AI-Native SDLC Adoption Model</h2>
+                
+                <div class="callout" style="margin-bottom: 2rem; background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-left-color: var(--aa-light-blue);">
+                    <h3 style="color: var(--aa-dark-blue); margin-top: 0;"><i class="fas fa-route"></i> Phased, Controlled Evolution</h3>
+                    <p style="margin: 0; font-weight: 600;">We are not jumping to autonomous systems. We are methodically moving from <strong>assisted engineers → intelligent pipelines → AI-native operations</strong>.</p>
+                </div>
+
+                <!-- Tabs Navigation -->
+                <div class="tabs">
+                    <button class="tab-button crawl active" onclick="switchTab('crawl')">
+                        <i class="fas fa-baby-carriage"></i> CRAWL
+                    </button>
+                    <button class="tab-button walk" onclick="switchTab('walk')">
+                        <i class="fas fa-walking"></i> WALK
+                    </button>
+                    <button class="tab-button run" onclick="switchTab('run')">
+                        <i class="fas fa-running"></i> RUN
+                    </button>
+                </div>
+
+                <!-- CRAWL Tab Content -->
+                <div id="crawl-tab" class="tab-content active">
+                    <div class="grid-3" style="margin-bottom: 1.5rem;">
+                        <div class="card" style="background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, rgba(40, 167, 69, 0.02) 100%); border-left-color: var(--success-green);">
+                            <div style="font-size: 2rem; color: var(--success-green); margin-bottom: 0.5rem;"><i class="fas fa-tools"></i></div>
+                            <h3 style="color: var(--aa-dark-blue); margin: 0.5rem 0; font-size: 1rem;">Tools Deployed</h3>
+                            <ul style="font-size: 0.85rem; margin: 0;">
+                                <li>GitHub Copilot</li>
+                                <li>Chat-based AI</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, rgba(40, 167, 69, 0.02) 100%); border-left-color: var(--success-green);">
+                            <div style="font-size: 2rem; color: var(--success-green); margin-bottom: 0.5rem;"><i class="fas fa-zap"></i></div>
+                            <h3 style="color: var(--aa-dark-blue); margin: 0.5rem 0; font-size: 1rem;">What It Does</h3>
+                            <ul style="font-size: 0.85rem; margin: 0;">
+                                <li>Code generation</li>
+                                <li>Documentation help</li>
+                                <li>Debugging suggestions</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, rgba(40, 167, 69, 0.02) 100%); border-left-color: var(--success-green);">
+                            <div style="font-size: 2rem; color: var(--success-green); margin-bottom: 0.5rem;"><i class="fas fa-chart-line"></i></div>
+                            <h3 style="color: var(--aa-dark-blue); margin: 0.5rem 0; font-size: 1rem;">Value Gained</h3>
+                            <ul style="font-size: 0.85rem; margin: 0;">
+                                <li>Faster development</li>
+                                <li>Quick wins</li>
+                                <li>Lower curve</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="problem-box" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%); border-left-color: var(--success-green);">
+                        <h3 style="color: var(--success-green);"><i class="fas fa-exclamation-circle"></i> Key Limitation</h3>
+                        <p style="margin: 0; font-size: 0.95rem; color: #2d5016;">Disconnected from NXOP systems, architecture standards, and vendor contracts</p>
+                    </div>
+                </div>
+
+                <!-- WALK Tab Content -->
+                <div id="walk-tab" class="tab-content">
+                    <div class="grid-3" style="margin-bottom: 1.5rem;">
+                        <div class="card" style="background: linear-gradient(135deg, rgba(255, 140, 0, 0.05) 0%, rgba(255, 140, 0, 0.02) 100%); border-left-color: var(--warning-orange);">
+                            <div style="font-size: 2rem; color: var(--warning-orange); margin-bottom: 0.5rem;"><i class="fas fa-users-cog"></i></div>
+                            <h3 style="color: var(--aa-dark-blue); margin: 0.5rem 0; font-size: 1rem;">Role-Based AI</h3>
+                            <ul style="font-size: 0.85rem; margin: 0;">
+                                <li>Developer assistant</li>
+                                <li>Test automation</li>
+                                <li>SRE triage</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="background: linear-gradient(135deg, rgba(255, 140, 0, 0.05) 0%, rgba(255, 140, 0, 0.02) 100%); border-left-color: var(--warning-orange);">
+                            <div style="font-size: 2rem; color: var(--warning-orange); margin-bottom: 0.5rem;"><i class="fas fa-network-wired"></i></div>
+                            <h3 style="color: var(--aa-dark-blue); margin: 0.5rem 0; font-size: 1rem;">Connected To</h3>
+                            <ul style="font-size: 0.85rem; margin: 0;">
+                                <li>Vendor specs</li>
+                                <li>CI/CD pipelines</li>
+                                <li>Metrics & logs</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="background: linear-gradient(135deg, rgba(255, 140, 0, 0.05) 0%, rgba(255, 140, 0, 0.02) 100%); border-left-color: var(--warning-orange);">
+                            <div style="font-size: 2rem; color: var(--warning-orange); margin-bottom: 0.5rem;"><i class="fas fa-rocket"></i></div>
+                            <h3 style="color: var(--aa-dark-blue); margin: 0.5rem 0; font-size: 1rem;">Impact</h3>
+                            <ul style="font-size: 0.85rem; margin: 0;">
+                                <li>Weeks → Days</li>
+                                <li>35% → 75% coverage</li>
+                                <li>Fewer regressions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="solution-box" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(255, 140, 0, 0.1) 0%, rgba(255, 140, 0, 0.05) 100%); border-left-color: var(--warning-orange);">
+                        <h3 style="color: var(--warning-orange);"><i class="fas fa-magic"></i> Key Enabler: MCP</h3>
+                        <p style="margin: 0; font-size: 0.95rem; color: #664400;">Vendor products connected through Model Context Protocol for unified development intelligence</p>
+                    </div>
+                </div>
+
+                <!-- RUN Tab Content -->
+                <div id="run-tab" class="tab-content">
+                    <div class="grid-3">
+                        <div class="card" style="background: linear-gradient(135deg, rgba(0, 120, 210, 0.05) 0%, rgba(0, 120, 210, 0.02) 100%); border-left: 3px solid var(--aa-dark-blue);">
+                            <i class="fas fa-robot" style="font-size: 2rem; color: var(--aa-dark-blue); display: block; margin-bottom: 1rem;"></i>
+                            <h3 style="font-size: 1rem; color: var(--aa-dark-blue); margin: 0.5rem 0;">AI Agents In</h3>
+                            <ul style="font-size: 0.85rem; margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li>Delivery workflows</li>
+                                <li>SRE operations</li>
+                                <li>Change management</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card" style="background: linear-gradient(135deg, rgba(0, 120, 210, 0.05) 0%, rgba(0, 120, 210, 0.02) 100%); border-left: 3px solid var(--aa-dark-blue);">
+                            <i class="fas fa-users" style="font-size: 2rem; color: var(--aa-dark-blue); display: block; margin-bottom: 1rem;"></i>
+                            <h3 style="font-size: 1rem; color: var(--aa-dark-blue); margin: 0.5rem 0;">Hybrid Teams</h3>
+                            <ul style="font-size: 0.85rem; margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li>Human + AI squads</li>
+                                <li>Collaborative intelligence</li>
+                                <li>Continuous learning loops</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card" style="background: linear-gradient(135deg, rgba(0, 120, 210, 0.05) 0%, rgba(0, 120, 210, 0.02) 100%); border-left: 3px solid var(--aa-dark-blue);">
+                            <i class="fas fa-star" style="font-size: 2rem; color: var(--aa-dark-blue); display: block; margin-bottom: 1rem;"></i>
+                            <h3 style="font-size: 1rem; color: var(--aa-dark-blue); margin: 0.5rem 0;">Outcomes</h3>
+                            <ul style="font-size: 0.85rem; margin: 0.5rem 0; padding-left: 1.2rem;">
+                                <li>Predictive reliability</li>
+                                <li>Self-optimizing ops</li>
+                                <li>Full platform autonomy</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="solution-box" style="margin-top: 1.5rem; background: linear-gradient(135deg, rgba(0, 120, 210, 0.1) 0%, rgba(0, 120, 210, 0.05) 100%); border-left-color: var(--aa-dark-blue);">
+                        <h3 style="color: var(--aa-dark-blue);"><i class="fas fa-crown"></i> Key Transformation</h3>
+                        <p style="margin: 0; font-size: 0.95rem; color: #003d7a;">NXOP operates as a self-improving digital platform with autonomous agents managing delivery, reliability, and continuous optimization across all vendors and systems.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LIVE DEMO SLIDE -->
+            <section id="demo" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);">
+                <div style="height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                    <!-- Large Demo Text -->
+                    <div style="position: relative; margin-bottom: 0.5rem;">
+                        <h1 style="font-size: 8rem; color: transparent; background: linear-gradient(135deg, #0078D2 0%, #7b1fa2 50%, #008080 100%); -webkit-background-clip: text; background-clip: text; margin: 0; font-weight: 900; letter-spacing: -2px; text-shadow: 0 0 60px rgba(0, 120, 210, 0.2); animation: glow 2s ease-in-out infinite;">
+                            DEMO
+                        </h1>
+                        <!-- Glow effect -->
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 400px; background: radial-gradient(circle, rgba(0, 120, 210, 0.08) 0%, transparent 70%); filter: blur(40px); z-index: -1;"></div>
+                    </div>
+                    
+                    <!-- Subtitle -->
+                    <p style="font-size: 2rem; color: var(--aa-dark-gray); margin: 1rem 0; font-weight: 300;">
+                        See MCP + AI in Action
+                    </p>
+                    
+                    <!-- Animated lines -->
+                    <div style="margin: 1rem 0; width: 60%; max-width: 500px;">
+                        <div style="height: 2px; background: linear-gradient(90deg, transparent 0%, #0078D2 50%, transparent 100%); margin: 0.5rem 0;"></div>
+                    </div>
+                    
+                    <!-- Feature items with animation -->
+                    <div style="display: flex; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap; justify-content: center; max-width: 900px;">
+                        <div style="animation: slideUp 0.8s ease-out 0.1s both;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #0078D2 0%, #4fc3f7 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; box-shadow: 0 4px 20px rgba(0, 120, 210, 0.2);">
+                                <i class="fas fa-plug" style="font-size: 2.5rem; color: white;"></i>
+                            </div>
+                            <h3 style="color: var(--aa-dark-blue); margin: 0; font-size: 1.1rem;">Vendor Integration</h3>
+                        </div>
+                        <div style="animation: slideUp 0.8s ease-out 0.2s both;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #7b1fa2 0%, #ce93d8 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; box-shadow: 0 4px 20px rgba(123, 31, 162, 0.2);">
+                                <i class="fas fa-code" style="font-size: 2.5rem; color: white;"></i>
+                            </div>
+                            <h3 style="color: #7b1fa2; margin: 0; font-size: 1.1rem;">Code Generation</h3>
+                        </div>
+                        <div style="animation: slideUp 0.8s ease-out 0.3s both;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #008080 0%, #4dd0e1 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; box-shadow: 0 4px 20px rgba(0, 128, 128, 0.2);">
+                                <i class="fas fa-vial" style="font-size: 2.5rem; color: white;"></i>
+                            </div>
+                            <h3 style="color: #008080; margin: 0; font-size: 1.1rem;">AI Testing</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <style>
+                    @keyframes glow {
+                        0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 120, 210, 0.3)); }
+                        50% { filter: drop-shadow(0 0 40px rgba(0, 120, 210, 0.5)); }
+                    }
+                    
+                    @keyframes slideUp {
+                        from {
+                            opacity: 0;
+                            transform: translateY(30px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                </style>
+            </section>
+
+            <!-- EXECUTIVE PROGRESS DASHBOARD -->
+            <section>
+                <h2><i class="fas fa-chart-line"></i> Executive Progress Dashboard</h2>
+                
+                <div class="callout" style="margin-bottom: 2rem; background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-left-color: var(--aa-light-blue);">
+                    <h3 style="color: var(--aa-dark-blue); margin-top: 0;"><i class="fas fa-info-circle"></i> Current Status</h3>
+                    <p style="margin: 0; font-size: 0.95rem;">NXOP is actively transitioning from <strong>CRAWL → WALK</strong> phase, with foundational AI tools deployed and MCP integration underway.</p>
+                </div>
+
+                <!-- Overall Program Progress -->
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <div class="progress-title">
+                            <i class="fas fa-flag-checkered"></i> Overall AI-Native SDLC Adoption
+                        </div>
+                        <div class="progress-status">
+                            <span class="phase-indicator crawl"><i class="fas fa-check-circle"></i> CRAWL Complete</span>
+                            <span class="phase-indicator walk"><i class="fas fa-spinner fa-pulse"></i> WALK In Progress</span>
+                        </div>
+                    </div>
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar-fill" id="overall-progress" style="width: 0%;" data-target="35">
+                            <span id="progress-percentage">0%</span>
+                        </div>
+                    </div>
+                    <div class="progress-markers">
+                        <span><i class="fas fa-baby-carriage"></i> CRAWL (0-25%)</span>
+                        <span><i class="fas fa-walking"></i> WALK (25-70%)</span>
+                        <span><i class="fas fa-running"></i> RUN (70-100%)</span>
+                    </div>
+                </div>
+
+                <!-- Key Initiative Trackers -->
+                <h3 style="color: var(--aa-dark-blue); margin-top: 2rem;"><i class="fas fa-tasks"></i> Key Initiative Status</h3>
+                
+                <div style="display: flex; flex-wrap: nowrap; gap: 1.5rem; margin-top: 1rem; justify-content: center;">
+                    <!-- Completed -->
+                    <div style="display: flex; align-items: center; gap: 0.3rem; background: rgba(40, 167, 69, 0.1); padding: 0.4rem 0.7rem; border-radius: 15px; border-left: 3px solid var(--success-green);">
+                        <i class="fas fa-check-circle" style="color: var(--success-green); font-size: 0.75rem;"></i>
+                        <span style="font-size: 0.7rem; font-weight: 600;">Copilot</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.3rem; background: rgba(40, 167, 69, 0.1); padding: 0.4rem 0.7rem; border-radius: 15px; border-left: 3px solid var(--success-green);">
+                        <i class="fas fa-check-circle" style="color: var(--success-green); font-size: 0.75rem;"></i>
+                        <span style="font-size: 0.7rem; font-weight: 600;">Training</span>
+                    </div>
+                    <!-- In Progress -->
+                    <div style="display: flex; align-items: center; gap: 0.3rem; background: rgba(255, 140, 0, 0.1); padding: 0.4rem 0.7rem; border-radius: 15px; border-left: 3px solid var(--warning-orange);">
+                        <i class="fas fa-spinner fa-pulse" style="color: var(--warning-orange); font-size: 0.75rem;"></i>
+                        <span style="font-size: 0.7rem; font-weight: 600;">MCP</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.3rem; background: rgba(255, 140, 0, 0.1); padding: 0.4rem 0.7rem; border-radius: 15px; border-left: 3px solid var(--warning-orange);">
+                        <i class="fas fa-spinner fa-pulse" style="color: var(--warning-orange); font-size: 0.75rem;"></i>
+                        <span style="font-size: 0.7rem; font-weight: 600;">Test Auto</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.3rem; background: rgba(255, 140, 0, 0.1); padding: 0.4rem 0.7rem; border-radius: 15px; border-left: 3px solid var(--warning-orange);">
+                        <i class="fas fa-spinner fa-pulse" style="color: var(--warning-orange); font-size: 0.75rem;"></i>
+                        <span style="font-size: 0.7rem; font-weight: 600;">CI/CD</span>
+                    </div>
+                    <!-- Planned -->
+                    <div style="display: flex; align-items: center; gap: 0.3rem; background: rgba(0, 120, 210, 0.1); padding: 0.4rem 0.7rem; border-radius: 15px; border-left: 3px solid var(--aa-light-blue);">
+                        <i class="fas fa-clock" style="color: var(--aa-light-blue); font-size: 0.75rem;"></i>
+                        <span style="font-size: 0.7rem; font-weight: 600;">AI Agents</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.3rem; background: rgba(0, 120, 210, 0.1); padding: 0.4rem 0.7rem; border-radius: 15px; border-left: 3px solid var(--aa-light-blue);">
+                        <i class="fas fa-clock" style="color: var(--aa-light-blue); font-size: 0.75rem;"></i>
+                        <span style="font-size: 0.7rem; font-weight: 600;">Predictive Ops</span>
+                    </div>
+                </div>
+
+                <!-- Metrics Dashboard -->
+                <div class="grid-3" style="margin-top: 2rem;">
+                    <div class="stat-box" style="background: linear-gradient(135deg, var(--success-green) 0%, #218838 100%);">
+                        <div class="stat-number"><span id="velocity-gain">0</span>%</div>
+                        <div class="stat-label">Velocity Improvement</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, var(--warning-orange) 0%, #e07b00 100%);">
+                        <div class="stat-number"><span id="vendor-count">0</span>/10</div>
+                        <div class="stat-label">Tools Connected via MCP</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, var(--aa-dark-blue) 0%, var(--aa-light-blue) 100%);">
+                        <div class="stat-number"><span id="cost-saved">0</span>%</div>
+                        <div class="stat-label">Test Coverage Increase</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EXPECTED OUTCOMES -->
+            <section id="business-impact">
+                <h2><i class="fas fa-bullseye"></i> Expected Business Outcomes</h2>
+                
+                <!-- Hero Statement -->
+                <div style="background: linear-gradient(135deg, #0078D2 0%, #7b1fa2 100%); padding: 2rem 3rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 8px 30px rgba(0, 120, 210, 0.3); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%;"></div>
+                    <div style="position: relative; z-index: 2;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.25rem;">
+                            <div style="background: rgba(255,255,255,0.2); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); flex-shrink: 0;">
+                                <i class="fas fa-rocket" style="font-size: 2.5rem; color: white;"></i>
+                            </div>
+                            <div>
+                                <h3 style="color: white; font-size: 1.8rem; margin: 0; font-weight: 800; text-shadow: 2px 2px 10px rgba(0,0,0,0.2);">
+                                    Developers Driving Outcomes, Not Core
+                                </h3>
+                                <p style="color: rgba(255,255,255,0.95); margin: 0.5rem 0 0 0; font-size: 1.1rem; font-weight: 3050; line-height: 1.6;">
+                                    Free developers from plumbing and repetitive tasks — let AI handle the undifferentiated heavy lifting. Engineers focus on <strong style="color: #FFD700;">business value</strong>, <strong style="color: #FFD700;">innovation</strong>, and <strong style="color: #FFD700;">outcomes</strong>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid-3">
+                    <div class="stat-box animate__animated animate__fadeInUp">
+                        <div class="stat-number"><i class="fas fa-dollar-sign"></i></div>
+                        <div class="stat-label">Cost Savings</div>
+                    </div>
+                    <div class="stat-box animate__animated animate__fadeInUp animate__delay-1s">
+                        <div class="stat-number"><i class="fas fa-calendar"></i> </div>
+                        <div class="stat-label">Timeline Reduction</div>
+                    </div>
+                    <div class="stat-box animate__animated animate__fadeInUp animate__delay-2s">
+                        <div class="stat-number"><i class="fas fa-trophy"></i></div>
+                        <div class="stat-label">Productivity Gain</div>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <h3>Strategic Benefits for 6-Year NXOP Journey</h3>
+                    <ul>
+                        <li><strong>Accelerated Multi-Vendor Integration:</strong> MCP reduces vendor onboarding from months to weeks</li>
+                        <li><strong>Unified Development Experience:</strong> Single IDE with all vendor context and AI assistance</li>
+                        <li><strong>Organizational Maturity:</strong> Transform AA into AI-native enterprise with connected systems</li>
+                        <li><strong>Risk Mitigation:</strong> Automated compliance checking against vendor specifications</li>
+                        <li><strong>Developer Excellence:</strong> Enhanced experience attracts and retains top talent</li>
+                        <li><strong>Business Agility:</strong> Faster time-to-market for new airline capabilities and features</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- THANK YOU SLIDE -->
+            <section class="title-slide">
+                <div class="aa-logo animate__animated animate__zoomIn">
+                    <img src="../../shared-assets/images/aa.png" alt="American Airlines Logo">
+                </div>
+                <h1>Questions & Discussion</h1>
+                <p class="subtitle">Let's Transform NXOP Together</p>
+                <br>
+            </section>
+
+        </div>
+    </div>
+
+    <div class="aa-footer">
+        <div class="logo-small">
+            <img src="../../shared-assets/images/aa.png" alt="AA Logo">
+        </div>
+        <span>American Airlines | NXOP Program | Confidential</span>
+        <span id="slideNumber"></span>
+    </div>
+
+    <!-- Reveal.js -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.min.js"></script>
+    
+    <script>
+        // Initialize Reveal.js
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            progress: true,
+            slideNumber: false,
+            controls: true,
+            controlsLayout: 'bottom-right',
+            keyboard: true,
+            overview: true,
+            center: false,
+            touch: true,
+            loop: false,
+            width: 1280,
+            height: 720,
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 2.0
+        });
+
+        // Update slide number
+        Reveal.on('slidechanged', event => {
+            document.getElementById('slideNumber').textContent = 
+                `Slide ${event.indexh + 1} / ${Reveal.getTotalSlides()}`;
+        });
+
+        // Initial slide number
+        document.getElementById('slideNumber').textContent = '1 / ' + Reveal.getTotalSlides();
+
+        // Chart Color Scheme
+        const chartColors = {
+            red: '#C80A28',
+            darkBlue: '#004B87',
+            lightBlue: '#0078D2',
+            orange: '#FF8C00',
+            green: '#28A745',
+            gray: '#A7AAAD'
+        };
+
+        // Development Cycle Time Breakdown Chart
+        const cycleTimeCtx = document.getElementById('cycleTimeChart');
+        if (cycleTimeCtx) {
+            new Chart(cycleTimeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Requirements Analysis', 'Code Translation', 'Unit Testing', 'Integration Testing', 'Code Review', 'Documentation', 'Deployment Prep'],
+                    datasets: [{
+                        label: 'Days per Activity',
+                        data: [2, 7, 3, 2.5, 1.5, 1.5, 0.5],
+                        backgroundColor: [
+                            chartColors.lightBlue,
+                            chartColors.red,
+                            chartColors.orange,
+                            chartColors.orange,
+                            chartColors.darkBlue,
+                            chartColors.gray,
+                            chartColors.lightBlue
+                        ],
+                        borderColor: chartColors.darkBlue,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.x + ' days';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Days', font: { size: 14, weight: 'bold' } },
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { font: { size: 12 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Resource Projection Chart
+        const resourceCtx = document.getElementById('resourceChart');
+        if (resourceCtx) {
+            new Chart(resourceCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Current Team', 'Required (Traditional)', 'Required (AI-Enabled)', 'Savings'],
+                    datasets: [{
+                        label: 'Number of Developers',
+                        data: [30, 150, 40, 110],
+                        backgroundColor: [
+                            chartColors.lightBlue,
+                            chartColors.red,
+                            chartColors.green,
+                            chartColors.darkBlue
+                        ],
+                        borderColor: chartColors.darkBlue,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + ' developers';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Developers Required', font: { size: 14, weight: 'bold' } },
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 12 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'f' || e.key === 'F') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.documentElement.requestFullscreen();
+                }
+            }
+        });
+
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            const selectedTab = document.getElementById(tabName + '-tab');
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
+            // Activate selected button
+            const activeButton = document.querySelector('.tab-button.' + tabName);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+        }
+
+        // Progress Bar Animation
+        function animateProgressBar(element, targetPercent) {
+            setTimeout(() => {
+                element.style.width = targetPercent + '%';
+                const percentageSpan = element.querySelector('span');
+                if (percentageSpan) {
+                    let current = 0;
+                    const increment = targetPercent / 100;
+                    const interval = setInterval(() => {
+                        current += increment;
+                        if (current >= targetPercent) {
+                            current = targetPercent;
+                            clearInterval(interval);
+                        }
+                        percentageSpan.textContent = Math.round(current) + '%';
+                    }, 20);
+                }
+            }, 300);
+        }
+
+        // Counter Animation
+        function animateCounter(elementId, targetValue, duration = 2000, prefix = '', suffix = '') {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+
+            let current = 0;
+            const increment = targetValue / (duration / 16);
+            
+            const interval = setInterval(() => {
+                current += increment;
+                if (current >= targetValue) {
+                    current = targetValue;
+                    clearInterval(interval);
+                }
+                element.textContent = prefix + Math.round(current) + suffix;
+            }, 16);
+        }
+
+        // Initialize progress animations when slide is visible
+        Reveal.on('slidechanged', (event) => {
+            // Check if we're on the progress dashboard slide
+            if (event.currentSlide.querySelector('#overall-progress')) {
+                // Animate overall progress
+                const overallProgress = document.getElementById('overall-progress');
+                const target = parseInt(overallProgress.getAttribute('data-target'));
+                animateProgressBar(overallProgress, target);
+
+                // Animate milestone progress bars
+                setTimeout(() => {
+                    const mcpProgress = document.querySelector('.mcp-progress');
+                    if (mcpProgress) {
+                        const mcpTarget = parseInt(mcpProgress.getAttribute('data-target'));
+                        animateProgressBar(mcpProgress, mcpTarget);
+                    }
+
+                    const testProgress = document.querySelector('.test-progress');
+                    if (testProgress) {
+                        const testTarget = parseInt(testProgress.getAttribute('data-target'));
+                        animateProgressBar(testProgress, testTarget);
+                    }
+
+                    const cicdProgress = document.querySelector('.cicd-progress');
+                    if (cicdProgress) {
+                        const cicdTarget = parseInt(cicdProgress.getAttribute('data-target'));
+                        animateProgressBar(cicdProgress, cicdTarget);
+                    }
+                }, 500);
+
+                // Animate counters
+                setTimeout(() => {
+                    animateCounter('velocity-gain', 40);
+                    animateCounter('vendor-count', 3);
+                    animateCounter('cost-saved', 75);
+                }, 1000);
+            }
+        });
+
+        // Show/hide Back to Agenda button based on current slide
+        Reveal.on('slidechanged', (event) => {
+            const backButton = document.getElementById('backToAgenda');
+            // Hide on title slide (0) and agenda slide (1)
+            if (event.indexh === 0 || event.indexh === 1) {
+                backButton.classList.remove('visible');
+            } else {
+                backButton.classList.add('visible');
+            }
+        });
+
+        // Initialize button visibility on load
+        Reveal.on('ready', () => {
+            const backButton = document.getElementById('backToAgenda');
+            if (Reveal.getState().indexh > 1) {
+                backButton.classList.add('visible');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-Enabled SDLC Microsite Presentation">
+    <title>AI in SDLC - NXOP Platform</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/images/aa-logo.png" alt="American Airlines" class="logo-img">
+                <span class="logo-text">NXOP Platform</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#hero" class="nav-link">Home</a></li>
+                <li><a href="#problem" class="nav-link">Challenge</a></li>
+                <li><a href="#solution" class="nav-link">Solution</a></li>
+                <li><a href="#metrics" class="nav-link">Impact</a></li>
+                <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
+                <li><a href="#cta" class="nav-link">Action</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Section 1: Hero -->
+    <section id="hero" class="section hero-section">
+        <div class="container">
+            <div class="hero-content animate-on-scroll">
+                <h1 class="hero-title">
+                    Accelerating NXOP Delivery with <span class="highlight">AI Across the SDLC</span>
+                </h1>
+                <p class="hero-subtitle">
+                    From requirements to reliability — improving speed, quality, and operational confidence
+                </p>
+                <div class="hero-cta">
+                    <a href="#problem" class="btn btn-primary">Explore the Impact</a>
+                    <a href="#roadmap" class="btn btn-secondary">View Roadmap</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="stat-number" data-target="78">0</div>
+                    <div class="stat-label">% Faster Delivery</div>
+                </div>
+                <div class="stat-card animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="stat-number" data-target="86">0</div>
+                    <div class="stat-label">% Test Automation</div>
+                </div>
+                <div class="stat-card animate-on-scroll" style="animation-delay: 0.6s;">
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">x Productivity Gain</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-background"></div>
+    </section>
+
+    <!-- Section 2: Problem / Challenge -->
+    <section id="problem" class="section problem-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">The Challenge: Growing Complexity</h2>
+            <p class="section-subtitle animate-on-scroll">
+                Modern platforms face increasing demands with traditional development approaches
+            </p>
+            
+            <div class="problem-grid">
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Integration Growth</h3>
+                    <p>Exponential increase in API integrations and microservices requiring continuous development</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="problem-icon">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <h3>Long Feedback Loops</h3>
+                    <p>Delayed testing and validation cycles slow down delivery and increase risk</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="problem-icon">
+                        <i class="fas fa-hand-pointer"></i>
+                    </div>
+                    <h3>Manual Testing Burden</h3>
+                    <p>Heavy reliance on manual testing limits scalability and coverage</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll" style="animation-delay: 0.6s;">
+                    <div class="problem-icon">
+                        <i class="fas fa-fire-extinguisher"></i>
+                    </div>
+                    <h3>Reactive Operations</h3>
+                    <p>Responding to incidents instead of preventing them through predictive insights</p>
+                </div>
+            </div>
+            
+            <!-- Visual Pipeline with Bottlenecks -->
+            <div class="pipeline-visual animate-on-scroll">
+                <h3>Traditional SDLC Pipeline</h3>
+                <div class="pipeline-flow">
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="stage-name">Planning</div>
+                    </div>
+                    <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="pipeline-stage bottleneck">
+                        <div class="stage-icon"><i class="fas fa-code"></i></div>
+                        <div class="stage-name">Development</div>
+                        <div class="bottleneck-badge">Slow</div>
+                    </div>
+                    <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="pipeline-stage bottleneck">
+                        <div class="stage-icon"><i class="fas fa-vial"></i></div>
+                        <div class="stage-name">Testing</div>
+                        <div class="bottleneck-badge">Manual</div>
+                    </div>
+                    <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="pipeline-stage">
+                        <div class="stage-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="stage-name">Release</div>
+                    </div>
+                    <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="pipeline-stage bottleneck">
+                        <div class="stage-icon"><i class="fas fa-server"></i></div>
+                        <div class="stage-name">Operations</div>
+                        <div class="bottleneck-badge">Reactive</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Solution / Reframe -->
+    <section id="solution" class="section solution-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">AI-Enabled SDLC: Beyond Code Completion</h2>
+            <p class="section-subtitle animate-on-scroll">
+                System-level productivity improvements across the entire delivery lifecycle
+            </p>
+            
+            <div class="ai-capabilities-grid">
+                <!-- Planning -->
+                <div class="capability-card animate-on-scroll">
+                    <div class="capability-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Planning</h3>
+                    </div>
+                    <ul class="capability-list">
+                        <li>Requirements analysis & user story generation</li>
+                        <li>Architecture recommendations</li>
+                        <li>Effort estimation & sprint planning</li>
+                    </ul>
+                </div>
+                
+                <!-- Development -->
+                <div class="capability-card animate-on-scroll" style="animation-delay: 0.1s;">
+                    <div class="capability-header">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Development</h3>
+                    </div>
+                    <ul class="capability-list">
+                        <li>Code generation & completion</li>
+                        <li>Refactoring suggestions</li>
+                        <li>Security vulnerability detection</li>
+                    </ul>
+                </div>
+                
+                <!-- Testing -->
+                <div class="capability-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="capability-header">
+                        <i class="fas fa-flask"></i>
+                        <h3>Testing</h3>
+                    </div>
+                    <ul class="capability-list">
+                        <li>Automated test generation</li>
+                        <li>Contract & regression testing</li>
+                        <li>Test data synthesis</li>
+                    </ul>
+                </div>
+                
+                <!-- Release -->
+                <div class="capability-card animate-on-scroll" style="animation-delay: 0.3s;">
+                    <div class="capability-header">
+                        <i class="fas fa-shipping-fast"></i>
+                        <h3>Release</h3>
+                    </div>
+                    <ul class="capability-list">
+                        <li>Deployment risk scoring</li>
+                        <li>Rollback recommendations</li>
+                        <li>Release notes generation</li>
+                    </ul>
+                </div>
+                
+                <!-- SRE/Operations -->
+                <div class="capability-card animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="capability-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>SRE/Operations</h3>
+                    </div>
+                    <ul class="capability-list">
+                        <li>Incident triage & root cause analysis</li>
+                        <li>Observability intelligence</li>
+                        <li>Automated runbook execution</li>
+                    </ul>
+                </div>
+                
+                <!-- Maintenance -->
+                <div class="capability-card animate-on-scroll" style="animation-delay: 0.5s;">
+                    <div class="capability-header">
+                        <i class="fas fa-wrench"></i>
+                        <h3>Maintenance</h3>
+                    </div>
+                    <ul class="capability-list">
+                        <li>Technical debt identification</li>
+                        <li>Dependency updates & security patches</li>
+                        <li>Performance optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Target Operating Model -->
+    <section id="operating-model" class="section model-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">AI-Enabled Pipeline: Target Operating Model</h2>
+            <p class="section-subtitle animate-on-scroll">
+                Intelligent assistance at every stage of the delivery flow
+            </p>
+            
+            <div class="ai-pipeline-visual animate-on-scroll">
+                <div class="ai-pipeline-flow">
+                    <div class="ai-stage">
+                        <div class="stage-content">
+                            <i class="fas fa-tasks"></i>
+                            <h4>Planning</h4>
+                        </div>
+                        <div class="ai-assist">
+                            <i class="fas fa-robot"></i>
+                            <span>AI Requirements Analysis</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-stage">
+                        <div class="stage-content">
+                            <i class="fas fa-code"></i>
+                            <h4>Development</h4>
+                        </div>
+                        <div class="ai-assist">
+                            <i class="fas fa-robot"></i>
+                            <span>AI Code Generation</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-stage">
+                        <div class="stage-content">
+                            <i class="fas fa-vial"></i>
+                            <h4>Testing</h4>
+                        </div>
+                        <div class="ai-assist">
+                            <i class="fas fa-robot"></i>
+                            <span>AI Test Automation</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-stage">
+                        <div class="stage-content">
+                            <i class="fas fa-rocket"></i>
+                            <h4>Release</h4>
+                        </div>
+                        <div class="ai-assist">
+                            <i class="fas fa-robot"></i>
+                            <span>AI Risk Scoring</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-stage">
+                        <div class="stage-content">
+                            <i class="fas fa-server"></i>
+                            <h4>Operations</h4>
+                        </div>
+                        <div class="ai-assist">
+                            <i class="fas fa-robot"></i>
+                            <span>AI Incident Intelligence</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Use Cases -->
+    <section id="use-cases" class="section use-cases-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">NXOP Priority Use Cases</h2>
+            
+            <div class="use-case-cards">
+                <div class="use-case-card animate-on-scroll">
+                    <div class="use-case-number">01</div>
+                    <h3><i class="fas fa-plug"></i> Integration Development Acceleration</h3>
+                    <p>Automatically generate API integration code, contract tests, and documentation from OpenAPI specifications</p>
+                    <div class="use-case-impact">Impact: <strong>60% reduction in integration development time</strong></div>
+                </div>
+                
+                <div class="use-case-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="use-case-number">02</div>
+                    <h3><i class="fas fa-check-double"></i> Automated Contract & Regression Testing</h3>
+                    <p>AI-generated test suites that adapt to API changes and ensure backward compatibility</p>
+                    <div class="use-case-impact">Impact: <strong>85% test automation coverage</strong></div>
+                </div>
+                
+                <div class="use-case-card animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="use-case-number">03</div>
+                    <h3><i class="fas fa-stethoscope"></i> Incident Triage & Observability Intelligence</h3>
+                    <p>Intelligent analysis of logs, metrics, and traces to identify root causes faster</p>
+                    <div class="use-case-impact">Impact: <strong>70% reduction in MTTR</strong></div>
+                </div>
+                
+                <div class="use-case-card animate-on-scroll" style="animation-delay: 0.6s;">
+                    <div class="use-case-number">04</div>
+                    <h3><i class="fas fa-book-medical"></i> Runbook & Remediation Suggestions</h3>
+                    <p>Automated generation of operational runbooks and proactive remediation recommendations</p>
+                    <div class="use-case-impact">Impact: <strong>Shift from reactive to predictive operations</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Metrics & Charts -->
+    <section id="metrics" class="section metrics-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Measurable Impact & Metrics</h2>
+            
+            <!-- KPI Counters -->
+            <div class="kpi-grid">
+                <div class="kpi-card animate-on-scroll">
+                    <div class="kpi-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <div class="kpi-value" data-target="18" data-suffix=" → 3">0</div>
+                    <div class="kpi-label">Cycle Time (Days)</div>
+                    <div class="kpi-change positive">-78%</div>
+                </div>
+                
+                <div class="kpi-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="kpi-icon"><i class="fas fa-chart-bar"></i></div>
+                    <div class="kpi-value" data-target="12" data-suffix="x">0</div>
+                    <div class="kpi-label">Deployment Frequency</div>
+                    <div class="kpi-change positive">+1100%</div>
+                </div>
+                
+                <div class="kpi-card animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="kpi-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="kpi-value" data-target="86" data-suffix="%">0</div>
+                    <div class="kpi-label">Test Coverage</div>
+                    <div class="kpi-change positive">+51%</div>
+                </div>
+                
+                <div class="kpi-card animate-on-scroll" style="animation-delay: 0.6s;">
+                    <div class="kpi-icon"><i class="fas fa-clock"></i></div>
+                    <div class="kpi-value" data-target="70" data-suffix="%">0</div>
+                    <div class="kpi-label">MTTR Reduction</div>
+                    <div class="kpi-change positive">Faster Recovery</div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card animate-on-scroll">
+                    <h3>Cycle Time Reduction</h3>
+                    <canvas id="cycleTimeChart"></canvas>
+                </div>
+                
+                <div class="chart-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <h3>Deployment Frequency Trend</h3>
+                    <canvas id="deploymentChart"></canvas>
+                </div>
+                
+                <div class="chart-card animate-on-scroll" style="animation-delay: 0.4s;">
+                    <h3>Testing Coverage</h3>
+                    <canvas id="testCoverageChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: Governance -->
+    <section id="governance" class="section governance-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Governance & Risk Controls</h2>
+            <p class="section-subtitle animate-on-scroll">Responsible AI usage with proper guardrails</p>
+            
+            <div class="governance-grid">
+                <div class="governance-card animate-on-scroll">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Human Approval</h3>
+                    <p>Critical changes require human review and explicit approval before deployment</p>
+                </div>
+                
+                <div class="governance-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Audit Logs</h3>
+                    <p>Complete traceability of AI-generated code and automated decisions</p>
+                </div>
+                
+                <div class="governance-card animate-on-scroll" style="animation-delay: 0.4s;">
+                    <i class="fas fa-lock"></i>
+                    <h3>Security Scanning</h3>
+                    <p>Automated security and compliance checks on all AI-generated artifacts</p>
+                </div>
+                
+                <div class="governance-card animate-on-scroll" style="animation-delay: 0.6s;">
+                    <i class="fas fa-gavel"></i>
+                    <h3>Policy Compliance</h3>
+                    <p>Alignment with enterprise standards, regulatory requirements, and best practices</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 8: Vendor Alignment -->
+    <section id="vendor" class="section vendor-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Vendor & Partner Alignment</h2>
+            
+            <div class="vendor-content">
+                <div class="vendor-expectations animate-on-scroll">
+                    <h3><i class="fas fa-handshake"></i> AI-Enabled Co-Build Model</h3>
+                    <ul>
+                        <li>Vendors expected to leverage AI for faster, higher-quality delivery</li>
+                        <li>Standardized telemetry and observability from day one</li>
+                        <li>Automated testing as a baseline requirement</li>
+                        <li>Documentation generated and maintained via AI tools</li>
+                    </ul>
+                </div>
+                
+                <div class="vendor-benefits animate-on-scroll" style="animation-delay: 0.3s;">
+                    <h3><i class="fas fa-trophy"></i> Benefits for All Stakeholders</h3>
+                    <div class="benefit-list">
+                        <div class="benefit-item">
+                            <i class="fas fa-rocket"></i>
+                            <div>
+                                <strong>Faster Onboarding</strong>
+                                <p>Reduce vendor ramp-up time with AI-assisted knowledge transfer</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-balance-scale"></i>
+                            <div>
+                                <strong>Consistency</strong>
+                                <p>Standardized approaches across all vendor engagements</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <strong>Lower Risk</strong>
+                                <p>Better quality and predictability through automation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 9: Roadmap -->
+    <section id="roadmap" class="section roadmap-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Implementation Roadmap</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-marker phase-1">1</div>
+                    <div class="timeline-content">
+                        <h3>Phase 1: Foundation</h3>
+                        <p class="timeline-period">Q1-Q2 2026</p>
+                        <ul>
+                            <li>GitHub Copilot deployment across development teams</li>
+                            <li>AI-powered test generation tools integration</li>
+                            <li>Initial metrics and baseline establishment</li>
+                            <li>Developer training and best practices</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="timeline-marker phase-2">2</div>
+                    <div class="timeline-content">
+                        <h3>Phase 2: Intelligence</h3>
+                        <p class="timeline-period">Q3-Q4 2026</p>
+                        <ul>
+                            <li>Pipeline risk scoring and deployment intelligence</li>
+                            <li>Automated code review and security analysis</li>
+                            <li>Integration with observability platforms</li>
+                            <li>Vendor alignment and contract updates</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="timeline-marker phase-3">3</div>
+                    <div class="timeline-content">
+                        <h3>Phase 3: Autonomy</h3>
+                        <p class="timeline-period">2027</p>
+                        <ul>
+                            <li>Predictive operations and proactive remediation</li>
+                            <li>Self-healing infrastructure capabilities</li>
+                            <li>Advanced incident intelligence and automation</li>
+                            <li>Continuous optimization and learning</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 10: Strategic Value -->
+    <section id="strategic-value" class="section value-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Strategic Value to NXOP Platform</h2>
+            
+            <div class="value-grid">
+                <div class="value-card animate-on-scroll">
+                    <div class="value-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                    <h3>Scalability</h3>
+                    <p>Handle exponential growth in integrations without proportional team expansion</p>
+                </div>
+                
+                <div class="value-card animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="value-icon"><i class="fas fa-heartbeat"></i></div>
+                    <h3>Reliability</h3>
+                    <p>Predictive operations and faster incident resolution improve platform stability</p>
+                </div>
+                
+                <div class="value-card animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="value-icon"><i class="fas fa-key"></i></div>
+                    <h3>Vendor Independence</h3>
+                    <p>Reduce dependency on individual vendors through standardization and automation</p>
+                </div>
+                
+                <div class="value-card animate-on-scroll" style="animation-delay: 0.6s;">
+                    <div class="value-icon"><i class="fas fa-balance-scale-right"></i></div>
+                    <h3>Regulatory Agility</h3>
+                    <p>Faster response to compliance requirements with automated testing and documentation</p>
+                </div>
+            </div>
+            
+            <div class="value-summary animate-on-scroll">
+                <h3>Business-Aligned Outcomes</h3>
+                <p class="emphasis">This isn't about adopting tools — it's about transforming how we deliver value to the business</p>
+                <ul class="outcomes-list">
+                    <li><i class="fas fa-check-circle"></i> Accelerated time-to-market for new capabilities</li>
+                    <li><i class="fas fa-check-circle"></i> Improved customer experience through faster feature delivery</li>
+                    <li><i class="fas fa-check-circle"></i> Reduced operational costs and improved efficiency</li>
+                    <li><i class="fas fa-check-circle"></i> Enhanced competitive advantage in digital aviation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 11: Call to Action -->
+    <section id="cta" class="section cta-section">
+        <div class="container">
+            <div class="cta-content animate-on-scroll">
+                <h2>Transform NXOP with AI-Enabled SDLC</h2>
+                <p class="cta-subtitle">The future of platform engineering starts now</p>
+                
+                <div class="action-items">
+                    <div class="action-card">
+                        <div class="action-number">1</div>
+                        <h3>Align on Operating Model</h3>
+                        <p>Adopt AI-enabled SDLC as the standard for NXOP platform development</p>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="action-number">2</div>
+                        <h3>Update Vendor Contracts</h3>
+                        <p>Include AI expectations in all vendor agreements and statements of work</p>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="action-number">3</div>
+                        <h3>Fund Automation</h3>
+                        <p>Allocate budget for AI tooling alongside feature delivery investments</p>
+                    </div>
+                </div>
+                
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary btn-large">
+                        <i class="fas fa-rocket"></i> Start Implementation
+                    </a>
+                    <a href="#" class="btn btn-secondary btn-large">
+                        <i class="fas fa-download"></i> Download Strategy Doc
+                    </a>
+                </div>
+                
+                <div class="executive-message">
+                    <blockquote>
+                        "AI in SDLC isn't optional—it's the competitive differentiator that will define platform engineering excellence in aviation."
+                    </blockquote>
+                    <p class="quote-author">— Technology Leadership</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/aa-logo.png" alt="American Airlines">
+                    <p>NXOP Platform | Technology Leadership</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#metrics">Impact</a></li>
+                        <li><a href="#roadmap">Roadmap</a></li>
+                        <li><a href="#cta">Get Started</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> nxop-platform@aa.com</p>
+                    <p><i class="fas fa-calendar"></i> Schedule a briefing</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 American Airlines. All rights reserved. | Confidential</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
