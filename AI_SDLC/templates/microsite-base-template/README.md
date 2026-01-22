@@ -203,8 +203,5 @@ python -m http.server 8000
 npx serve
 ```
 
-## License
-Internal use - American Airlines
-
 ## Support
-For questions or issues, contact: nxop-platform@aa.com
+For questions or issues, contact: nxop-team
